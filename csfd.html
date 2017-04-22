@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>TV tipy dňa | ČSFD.cz</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width = device-width">
+<script type="text/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://img.csfd.cz/assets/b2087/modules/web/styles/styles.css">
+<link rel="shortcut icon" href="https://img.csfd.cz/assets/b2087/images/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="https://img.csfd.cz/assets/b2087/images/apple_touch_icon.png">
+<style>
+body {
+      margin: 1em auto;
+      max-width: 40em;
+      font: 1.2em/1.62em sans-serif;
+  }
+</style>
+</head>
+
+<body>
+
+<script type="text/javascript">//<![CDATA[
+(function($){
+ $.YQL = function(query,callback) {
+   $.ajax( {
+     url: "https://query.yahooapis.com/v1/public/yql",
+	 dataType: "html",
+	 success: function(content) { if (callback) { callback(content); } },
+	 data: { q: query, format: "xml" }
+	 }
+   );
+  }
+})(jQuery);
+//]]></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$.YQL("select * from html where url='http://www.csfd.cz' and xpath='//div[@class=\"ct-general th-1 tv\"]'",function(content){
+    	$('#result').html(content);
+    	// console.log(content);
+    	$("a[href^='/']").each(function(){this.href=this.href.replace(/^https:\/\/orr721.htmldrop.com\//, "http://www.csfd.cz/")});
+	});
+});
+</script>
+
+<div id='result'>Loading..</div>
+
+</body>
+</html>
