@@ -37,7 +37,7 @@ $(document).ready(function(){
 	$.YQL("select * from html where url='http://www.csfd.cz' and xpath='//div[@class=\"ct-general th-1 tv\"]'",function(content){
     	$('#result').html(content);
     	// console.log(content);
-    	$("a[href^='/']").each(function(){this.href=this.href.replace(/^https:\/\/orr721.github.io\//, "http://www.csfd.cz/")});
+    	$("a[href^='/']").each(function(){this.href=this.href.replace(/^http:\/\/orr721.github.io\//, "http://www.csfd.cz/")});
 	});
 });
 </script>
