@@ -25,22 +25,22 @@ body {
      url: "https://query.yahooapis.com/v1/public/yql",
 	 dataType: "html",
 	 success: function(content) { if (callback) { callback(content); } },
-	 data: { q: query, format: "xml", env: "store://datatables.org/alltableswithkeys" }
+	 data: { q: query, format: "xml" }
 	 }
    );
   }
 })(jQuery);
 //]]></script>
 
-<script type="text/javascript">//<![CDATA[
+<script type="text/javascript">
 $(document).ready(function(){
-	$.YQL("select * from htmlstring where url='http://www.csfd.cz' and xpath='//div[@class=\"ct-general th-1 tv\"]'",function(content){
-        $('#result').html($(content).find("result").text());
+	$.YQL("select * from html where url='http://www.csfd.cz' and xpath='//div[@class=\"ct-general th-1 tv\"]'",function(content){
+    	$('#result').html(content);
     	// console.log(content);
     	$("a[href^='/']").each(function(){this.href=this.href.replace(/^https:\/\/orr721.github.io\//, "http://www.csfd.cz/")});
 	});
 });
-//]]></script>
+</script>
 
 <div id='result'>Loading..</div>
 
