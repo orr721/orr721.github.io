@@ -40,7 +40,7 @@ mojget(corscsfd).then(function(data) {
   // Run this when your request was successful
   pok = $(data).find('div[class="ct-general th-1 tv"]')
   console.log(pok)
-  $(pok).find("a[href^='/']").each(function(){this.href=this.href.replace(/^https:\/\/orr721.github.io\//, "https://www.csfd.cz/")});
+  $(pok).find("a[href]").each(function(){this.href=this.href.replace(/^https:\/\/orr721.github.io\//, "https://www.csfd.cz/")});
   $("#result").html(pok)
 }).catch(function(err) {
   // Run this when promise was rejected via reject()
