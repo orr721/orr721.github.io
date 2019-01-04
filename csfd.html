@@ -18,29 +18,36 @@ body {
 
 <body>
 
-<script type="text/javascript">//<![CDATA[
-(function($){
- $.YQL = function(query,callback) {
-   $.ajax( {
-     url: "https://query.yahooapis.com/v1/public/yql",
-	 dataType: "html",
-	 success: function(content) { if (callback) { callback(content); } },
-	 data: { q: query, format: "xml", env: "store://datatables.org/alltableswithkeys" }
-	 }
-   );
-  }
-})(jQuery);
-//]]></script>
+<script type="text/javascript">
 
-<script type="text/javascript">//<![CDATA[
-$(document).ready(function(){
-	$.YQL("select * from htmlstring where url='http://www.csfd.cz' and xpath='//div[@class=\"ct-general th-1 tv\"]'",function(content){
-        $('#result').html($(content).find("result").text());
-    	// console.log(content);
-    	$("a[href^='/']").each(function(){this.href=this.href.replace(/^https:\/\/orr721.github.io\//, "https://www.csfd.cz/")});
-	});
-});
-//]]></script>
+var corscsfd = "https://cors-anywhere.herokuapp.com/https://www.csfd.cz"
+
+function mojget(mojurl) {
+  return new Promise(function(resolve, reject) {
+    $.ajax({
+      url: mojurl,
+      success: function(data) {
+        resolve(data) // Resolve promise and go to then()
+      },
+      error: function(err) {
+        reject(err) // Reject the promise and go to catch()
+      }
+    })
+  })
+}
+
+mojget(corscsfd).then(function(data) {
+  // Run this when your request was successful
+  pok = $(data).find('div[class="ct-general th-1 tv"]')
+  console.log(pok)
+  $(pok).find("a[href^='/']").each(function(){this.href=this.href.replace(/^\//, "https://www.csfd.cz/")});
+  $("#result").html(pok)
+}).catch(function(err) {
+  // Run this when promise was rejected via reject()
+  console.log(err)
+})
+
+</script>
 
 <div id='result'>Loading..</div>
 
