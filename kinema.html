@@ -27,6 +27,7 @@ var corskinema = "https://cors-anywhere.herokuapp.com/http://www.kinema.sk"
 function mojget(mojurl) {
   return new Promise(function(resolve, reject) {
     $.ajax({
+      crossOrigin: true,
       url: mojurl,
       success: function(data) {
         resolve(data) // Resolve promise and go to then()
