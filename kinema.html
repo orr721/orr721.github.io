@@ -47,10 +47,10 @@ function nacitajTV(o){
       // uspech
       ytv = $(datax).find("div[class='bxhod lftmnu']")
       $(ytv).find("img[src^='/']").each(function() {
-         this.src = this.src.replace(/^file:\/\//, "http://");
+         this.src = this.src.replace(/^file:\/\//, "https://");
          });      
       $(ytv).find("a[href^='/']").each(function() {
-         this.href = this.href.replace(/^file:\/\//, "http://imgs.sector.sk");
+         this.href = this.href.replace(/^https:\/\/orr721.github.io/, "http://imgs.sector.sk");
          });      
       $(ytv).find("div[style^='color:#262626']").each(function() {
          this.style = "";
