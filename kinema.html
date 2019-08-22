@@ -22,7 +22,7 @@
 
 <script type="text/javascript" charset="utf-8">
 
-var corskinema = "https://cors-anywhere.herokuapp.com/http://www.kinema.sk"
+var corsurl = "https://cors-anywhere.herokuapp.com/"
 
 function mojget(mojurl) {
   return new Promise(function(resolve, reject) {
@@ -40,24 +40,34 @@ function mojget(mojurl) {
 }
 
 function nacitajTV(o){
-	urltv = corskinema + o
+	urltv = corsurl + o
     console.log(urltv)
 	$("#result").html(urltv)
     mojget(urltv).then(function(datax) {
       // uspech
-      ytv = $(datax).find("div[class=mainrec]")
-      $(ytv).find("a[href$='#diskusia']").remove()
-      $(ytv).find("div[class$='soc-left']").remove()
-      $(ytv).find("img[style$='display:none']").remove()
+      ytv = $(datax).find("div[class='bxhod lftmnu']")
+      $(ytv).find("img[src^='/']").each(function() {
+         this.src = this.src.replace(/^file:\/\//, "http://");
+         });      
+      $(ytv).find("a[href^='/']").each(function() {
+         this.href = this.href.replace(/^file:\/\//, "http://imgs.sector.sk");
+         });      
+      $(ytv).find("div[style^='color:#262626']").each(function() {
+         this.style = "";
+         this.class = "newstextcolo clntxt";
+         });      
+      $(ytv).find("div[class$='mainlikebx']").remove()
+      $(ytv).find("script").remove()
       $("#result").replaceWith(ytv);
     }).catch(function(errx) {
       console.log(errx)
     })
 }
 
-mojget(corskinema+"/tv").then(function(data) {
+mojget(corsurl+"http://www.kinema.sk/rss").then(function(data) {
   // Run this when your request was successful
-  pok = $(data).find("div[class=newsj_article]").find("a").attr("href")
+  pok = $(data).find("item:has(category:contains('TV Tipy')):first>guid").text()
+  console.log(pok)
   nacitajTV(pok)
 }).catch(function(err) {
   // Run this when promise was rejected via reject()
