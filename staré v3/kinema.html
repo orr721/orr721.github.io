@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width = device-width">
+	<link rel="SHORTCUT ICON" href="http://www.kinema.sk/favicon.ico" />
+	<title>TV tipy z kinema.sk</title>
+	<script type="text/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<style>
+		body {margin: 1em 1em;max-width: 40em;font: 1.2em/1.62em sans-serif;}
+  		.pics {text-align:center;padding:10px;}
+    	.picr {border:1px solid black;margin:5px;display:table-cell;}
+    	.posunpic {display:inline-block}
+	</style>
+</head>
+
+<body>
+
+<h1>TV tipy z kinema.sk</h1>
+<div id="result">Loading..</div>
+
+<script type="text/javascript" charset="utf-8">
+
+var corskinema = "https://cors-anywhere.herokuapp.com/http://www.kinema.sk"
+
+function mojget(mojurl) {
+  return new Promise(function(resolve, reject) {
+    $.ajax({
+      crossOrigin: true,
+      url: mojurl,
+      success: function(data) {
+        resolve(data) // Resolve promise and go to then()
+      },
+      error: function(err) {
+        reject(err) // Reject the promise and go to catch()
+      }
+    })
+  })
+}
+
+function nacitajTV(o){
+	urltv = corskinema + o
+    console.log(urltv)
+	$("#result").html(urltv)
+    mojget(urltv).then(function(datax) {
+      // uspech
+      ytv = $(datax).find("div[class=mainrec]")
+      $(ytv).find("a[href$='#diskusia']").remove()
+      $(ytv).find("div[class$='soc-left']").remove()
+      $(ytv).find("img[style$='display:none']").remove()
+      $("#result").replaceWith(ytv);
+    }).catch(function(errx) {
+      console.log(errx)
+    })
+}
+
+mojget(corskinema+"/tv").then(function(data) {
+  // Run this when your request was successful
+  pok = $(data).find("div[class=newsj_article]").find("a").attr("href")
+  nacitajTV(pok)
+}).catch(function(err) {
+  // Run this when promise was rejected via reject()
+  console.log(err)
+})
+
+</script>
+
+</body>
+</html>
