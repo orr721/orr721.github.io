@@ -57,6 +57,8 @@ function nacitajTV(o){
          this.class = "newstextcolo clntxt";
          });
       $(ytv).find("div[class$='mainlikebx']").remove()
+      $(ytv).find("div[class$='bwsubheadertxt lftmnuhead']").remove()
+      $(ytv).find("div[class$='leftmnscrl']").remove()
       $(ytv).find("script").remove()
       $("#result").replaceWith(ytv);
     }).catch(function(errx) {
