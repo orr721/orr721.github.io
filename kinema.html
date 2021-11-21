@@ -49,6 +49,9 @@ function nacitajTV(o){
       $(ytv).find("img[src^='/']").each(function() {
          this.src = this.src.replace(/^file:\/\//, "https://");
          });
+	 $(ytv).find("iframe[src^='/']").each(function() {
+         this.src = this.src.replace(/^file:\/\//, "https://");
+         });
       $(ytv).find("a[href^='/']").each(function() {
          this.href = this.href.replace(/^https:\/\/orr721.github.io/, "https://imgs.sector.sk");
          });
