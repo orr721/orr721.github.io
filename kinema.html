@@ -18,7 +18,7 @@
 <body>
 
 <h1>TV tipy z kinema.sk</h1>
-<div id="result">Načítavam3..</div>
+<div id="result">Načítavam..4</div>
 
 <script type="text/javascript" charset="utf-8">
 
@@ -50,6 +50,7 @@ function nacitajTV(o){
          this.src = this.src.replace(/^file:\/\//, "https://");
          });
       $(ytv).find("iframe[src^='/']").each(function() {
+	 console.log(this.src)
          this.src = this.src.replace(/^\//, "https://");
          });
       $(ytv).find("a[href^='/']").each(function() {
